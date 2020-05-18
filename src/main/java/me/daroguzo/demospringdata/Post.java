@@ -21,6 +21,15 @@ public class Post {
         comment.setPost(this);
     }
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", comments=" + comments +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }
