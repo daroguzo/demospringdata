@@ -2,8 +2,11 @@ package me.daroguzo.demospringdata;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@SuppressWarnings("ALL")
 public class Account {
 
     @Id @GeneratedValue
@@ -14,8 +17,20 @@ public class Account {
 
     private String password;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date created = new Date();
+    @OneToMany(mappedBy = "owner")
+    private Set<Study> studies = new HashSet<>();
+
+
+
+
+
+    public Set<Study> getStudies() {
+        return studies;
+    }
+
+    public void setStudies(Set<Study> studies) {
+        this.studies = studies;
+    }
 
     public Long getId() {
         return id;
@@ -39,5 +54,18 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    // convenient method (add)
+    public void addStudy(Study study) {
+        this.getStudies().add(study);
+        study.setOwner(this );
+    }
+
+    // convenient method (remove)
+    public void removeStudy(Study study) {
+        this.getStudies().remove(study);
+        study.setOwner(null);
     }
 }
