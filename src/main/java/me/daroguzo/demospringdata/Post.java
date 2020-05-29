@@ -2,6 +2,7 @@ package me.daroguzo.demospringdata;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +14,12 @@ public class Post {
 
     private String title;
 
+    @Lob
+    private String content;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Set<Comment> comments = new HashSet<>( );
 
@@ -21,13 +28,20 @@ public class Post {
         comment.setPost(this);
     }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", comments=" + comments +
-                '}';
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public Long getId() {
