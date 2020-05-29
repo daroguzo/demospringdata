@@ -1,5 +1,7 @@
 package me.daroguzo.demospringdata;
 
+import org.springframework.data.domain.AbstractAggregateRoot;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -7,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Post {
+public class Post extends AbstractAggregateRoot<Post> {
 
     @Id @GeneratedValue
     private Long id;
@@ -66,5 +68,11 @@ public class Post {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Post publish(){
+        this.registerEvent(new PostPublishedEvent(this));
+
+        return this;
     }
 }
