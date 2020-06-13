@@ -44,7 +44,7 @@ public class Account {
         return userName;
     }
 
-    public void setName(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
@@ -60,7 +60,7 @@ public class Account {
     // convenient method (add)
     public void addStudy(Study study) {
         this.getStudies().add(study);
-        study.setOwner(this );
+        study.setOwner(this);
     }
 
     // convenient method (remove)
